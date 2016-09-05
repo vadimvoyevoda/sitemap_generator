@@ -6,7 +6,13 @@
 	LinkController::$db = $db;
 	MapController::$db = $db;
 	
-	if(!empty($_POST['website']))
+	if(!empty($_FILES['website2']))
+	{
+		$file_content = file_get_contents($_FILES['website2']['tmp_name']);
+		$links = str_replace("\n",",",$file_content);
+		echo $links;
+		
+	} else if(!empty($_POST['website']))
 	{		
 		//get url from POST variable
 		$url = $_POST['website'];	
@@ -47,7 +53,7 @@
 		{
 			//get first page without child links
 			$res = LinkController::get_next_empty_link($sitemap);
-			if(!empty($res))
+			if(!empty($res) && $res['DEPTH']<$depth_max)
 			{
 				//append domain to url befor searching
 				$url = MapController::get_sitemap_url($sitemap).$res['LINK'];

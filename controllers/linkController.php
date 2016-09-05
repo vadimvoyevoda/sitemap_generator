@@ -86,10 +86,10 @@
 			return LinkModel::get_next_link($sitemap);
 		}
 		
-		static function get_links($sitemap, $page)
+		static function get_links($page, $sitemap = null)
 		{
 			LinkModel::$db = self::$db;
-			return LinkModel::get_links($sitemap, $page);
+			return LinkModel::get_links($page, $sitemap);
 		}
 	}
 ?>
